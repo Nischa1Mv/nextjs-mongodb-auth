@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import User from "../../../../models/User";
+import User from "../../../../../models/User";
 import bcryptjs from "bcryptjs";
-import { connectDB } from "../../../../server/server";
+import {connectDB} from "../../../../../server/server"
 import validator from "validator";
 connectDB();
 

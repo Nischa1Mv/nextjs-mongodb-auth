@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import User from "../../../../models/User";
+import User from "../../../../../models/User";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import {connectDB }from "../../../../server/server";
+import {connectDB }from "../../../../../server/server";
 import dotenv from "dotenv";
 dotenv.config();
 connectDB();
