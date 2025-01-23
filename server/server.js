@@ -1,29 +1,27 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import path from 'path';
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
-const MONGODB_URI = process.env.MONGODB_URI;
-console.log(MONGODB_URI);
-console.log(typeof MONGODB_URI);
 
+const mongoDBUrl = process.env.MONGODB_URI;
+console.log("mongoDBUrl", mongoDBUrl);
 
 export async function connectDB() {
-    try {
-        await mongoose.connect(MONGODB_URI)
-        const connection = mongoose.connection;
+  try {
+    mongoose.connect(mongoDBUrl);
+    const connection = mongoose.connection;
 
-        connection.on('error', (err) => {
-            console.log('MongoDB Connection Error: ', err);
-            process.exit(1);
-        });
-        connection.on('connected', () => {
-            console.log('MongoDB Connected');
-        }
-        );
-    }
-    catch (err) {
-        console.log(err);
-    }
-};
+    connection.on("connected", () => {
+      console.log("MongoDB connected successfully");
+    });
+
+    connection.on("error", (error) => {
+      console.log("MongoDB connection failed", error);
+      process.exit(1);
+    });
+  } catch (error) {
+    console.log("MongoDB connection failed", error);
+  }
+}
 connectDB();
