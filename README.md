@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Auth Templates
+
+This repository contains various authentication templates for different technologies. The goal of this repository is to provide ready-to-use templates for user authentication using different stacks and technologies.
+
+## Available Templates
+
+- **Next.js + MongoDB Authentication**
+
+## Next.js + MongoDB Authentication
+
+This template provides a simple authentication system built with **Next.js** and **MongoDB**. It includes the basic authentication routes for user login, registration, and logout.
+
+### Features
+- **User Registration**: Allows users to sign up with an email and password.
+- **User Login**: Authenticates users by comparing the entered password with the stored hashed password.
+- **JWT Authentication**: Uses JWT for securing authenticated routes.
+- **Logout**: Clears the session and removes the authentication token from cookies.
+- **MongoDB Database**: Stores user data securely in MongoDB.
+
+---
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to get the authentication template running on your local machine:
 
+### Prerequisites
+
+1. Node.js (v16.x or later)
+2. MongoDB Database (You can use MongoDB Atlas or a local instance)
+3. Basic knowledge of Next.js
+
+### Step 1: Clone the Repository
+
+Clone this repository to your local machine:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Nischa1Mv/nextjs-mongodb-auth.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Step 2: Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Navigate to the `nextjs-mongodb-auth` directory and install the dependencies:
+```bash
+cd nextjs-mongodb-auth
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Step 3: Configure Environment Variables
 
-## Learn More
+Copy the `.env.example` file to `.env` and configure the following environment variables:
+```
+MONGODB_URI=mongodb://localhost:27017/yourDB   # MongoDB connection string
+JWT_SECRET=your_jwt_secret   # Secret key for signing JWT tokens
+```
+If you're using MongoDB Atlas, use the connection string provided by MongoDB Atlas.
 
-To learn more about Next.js, take a look at the following resources:
+### Step 4: Run the Application
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Once the environment variables are set up, run the application:
+```bash
+npm run dev
+```
+This will start the Next.js server on `http://localhost:3000`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Available Routes
 
-## Deploy on Vercel
+#### POST `/api/auth/register`
+- **Description**: Registers a new user with an email and password.
+- **Request Body**:
+    ```json
+    {
+        "email": "user@example.com",
+        "password": "your_password"
+    }
+    ```
+- **Response**:
+    - `200 OK`: User registered successfully.
+    - `400 Bad Request`: Invalid data (missing email/password).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### POST `/api/auth/login`
+- **Description**: Logs in an existing user by verifying the email and password.
+- **Request Body**:
+    ```json
+    {
+        "email": "user@example.com",
+        "password": "your_password"
+    }
+    ```
+- **Response**:
+    - `200 OK`: User logged in successfully. Returns a JWT token.
+    - `401 Unauthorized`: Invalid credentials.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### POST `/api/auth/logout`
+- **Description**: Logs the user out by clearing the authentication token from cookies.
+- **Response**:
+    - `200 OK`: User logged out successfully.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
